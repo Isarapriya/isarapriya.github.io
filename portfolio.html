@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyadharshini V — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#F4F6F5;
+    --canvas-dim:#EAEEEE;
+    --ink:#16232B;
+    --ink-soft:#4A5A62;
+    --navy:#1F3B4D;
+    --line:#CBD6D6;
+    --coral:#DA5F37;
+    --coral-soft:#F1DCD2;
+    --teal:#2E877D;
+    --teal-soft:#D8E9E6;
+    --gold:#C99A3A;
+    --radius:2px;
+    --serif:'Fraunces', serif;
+    --mono:'IBM Plex Mono', monospace;
+    --sans:'Inter', sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/100% 42px,
+      var(--canvas);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  ::selection{ background:var(--coral); color:#fff; }
+
+  a:focus-visible, button:focus-visible, .switch:focus-visible{
+    outline:2px solid var(--navy);
+    outline-offset:3px;
+  }
+
+  .wrap{ max-width:900px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,246,245,0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:900px; margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px;
+  }
+  .nav-mark{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.03em;
+    color:var(--navy); text-decoration:none; font-weight:600;
+  }
+  .nav-links{ display:flex; gap:22px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    font-family:var(--mono); font-size:12px; text-transform:uppercase;
+    letter-spacing:0.08em; text-decoration:none; color:var(--ink-soft);
+    padding-bottom:2px; border-bottom:1px solid transparent;
+    transition:color .15s, border-color .15s;
+  }
+  .nav-links a:hover{ color:var(--coral); border-color:var(--coral); }
+
+  .lens{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:11px; color:var(--ink-soft);
+  }
+  .switch{
+    display:flex; border:1px solid var(--navy); border-radius:20px;
+    overflow:hidden; cursor:pointer; background:transparent;
+  }
+  .switch button{
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em;
+    padding:5px 12px; border:none; background:transparent; color:var(--navy);
+    cursor:pointer; text-transform:uppercase;
+  }
+  .switch button.active{ background:var(--navy); color:#fff; }
+
+  @media (max-width:640px){
+    .nav-links{ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:76px 0 60px; position:relative; overflow:hidden; }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:.12em;
+    color:var(--coral); text-transform:uppercase; margin:0 0 18px;
+  }
+  h1.name{
+    font-family:var(--serif); font-weight:600; font-size:clamp(40px,7vw,68px);
+    margin:0 0 6px; line-height:1.02; color:var(--ink);
+  }
+  .role-path{
+    font-family:var(--mono); font-size:14px; color:var(--navy);
+    margin:0 0 28px; display:flex; flex-wrap:wrap; gap:6px; align-items:center;
+  }
+  .role-path span.seg{
+    background:var(--canvas-dim); border:1px solid var(--line);
+    padding:3px 9px; border-radius:var(--radius);
+  }
+  .role-path span.slash{ color:var(--line); }
+
+  .hero p.lede{
+    font-size:17px; color:var(--ink-soft); max-width:56ch; margin:0 0 34px;
+  }
+
+  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px; text-decoration:none;
+    padding:11px 20px; border-radius:var(--radius); letter-spacing:.02em;
+    border:1px solid var(--navy); transition:transform .15s, background .15s, color .15s;
+    display:inline-block;
+  }
+  .btn.solid{ background:var(--navy); color:#fff; }
+  .btn.solid:hover{ background:var(--coral); border-color:var(--coral); transform:translateY(-1px); }
+  .btn.ghost{ color:var(--navy); }
+  .btn.ghost:hover{ background:var(--navy); color:#fff; transform:translateY(-1px); }
+
+  /* decorative bezier trace */
+  .trace{ position:absolute; right:-40px; top:40px; width:340px; height:260px; pointer-events:none; opacity:.9; }
+  @media (max-width:800px){ .trace{ display:none; } }
+  .trace path.curve{
+    fill:none; stroke:var(--coral); stroke-width:1.6;
+    stroke-dasharray:600; stroke-dashoffset:600;
+    animation:draw 1.8s ease forwards .3s;
+  }
+  .trace .handle{ stroke:var(--line); stroke-width:1; stroke-dasharray:3 3; }
+  .trace circle.anchor{ fill:var(--canvas); stroke:var(--navy); stroke-width:1.6; }
+  .trace circle.control{ fill:var(--canvas); stroke:var(--teal); stroke-width:1.2; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{ padding:54px 0; border-top:1px solid var(--line); }
+  .sec-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:30px; }
+  .sec-num{ font-family:var(--mono); font-size:12px; color:var(--coral); }
+  .sec-title{
+    font-family:var(--mono); font-size:13px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--navy); margin:0;
+  }
+  .sec-rule{ flex:1; height:1px; background:var(--line); }
+
+  /* ---------- ABOUT ---------- */
+  .about-body{ display:flex; gap:40px; flex-wrap:wrap; }
+  .about-text{ flex:1 1 420px; font-size:16px; color:var(--ink-soft); }
+  .about-text strong{ color:var(--ink); font-weight:600; }
+  .facts{
+    flex:0 0 220px; font-family:var(--mono); font-size:12.5px;
+    color:var(--ink-soft); border-left:1px solid var(--line); padding-left:18px;
+  }
+  .facts dt{ color:var(--navy); margin-top:12px; }
+  .facts dt:first-child{ margin-top:0; }
+  .facts dd{ margin:2px 0 0; color:var(--ink-soft); }
+
+  /* ---------- TIMELINE (experience + projects) ---------- */
+  .timeline{ position:relative; padding-left:26px; }
+  .timeline::before{
+    content:""; position:absolute; left:4px; top:6px; bottom:6px;
+    width:1px; background:var(--line);
+  }
+  .node{ position:relative; margin-bottom:44px; }
+  .node:last-child{ margin-bottom:0; }
+  .node::before{
+    content:""; position:absolute; left:-26px; top:5px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--canvas); border:2px solid var(--navy);
+  }
+  .node-head{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px 16px; margin-bottom:4px; }
+  .node-title{ font-family:var(--serif); font-size:20px; font-weight:600; margin:0; }
+  .node-org{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); }
+  .node-date{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+  ul.bullets{ margin:12px 0 14px; padding-left:18px; color:var(--ink-soft); font-size:15px; }
+  ul.bullets li{ margin-bottom:7px; }
+  ul.bullets li b{ color:var(--ink); font-weight:600; }
+
+  .tags{ display:flex; flex-wrap:wrap; gap:7px; margin-top:6px; }
+  .tag{
+    font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:20px;
+    border:1px solid var(--line); color:var(--ink-soft);
+    transition:opacity .2s, border-color .2s, color .2s, background .2s;
+  }
+  .tag.design{ }
+  .tag.code{ }
+  .tag.support{ }
+
+  body[data-lens="design"] .tag.code,
+  body[data-lens="design"] .node.code-only,
+  body[data-lens="code"] .tag.design,
+  body[data-lens="code"] .node.design-only{
+    opacity:.32;
+  }
+  body[data-lens="design"] .tag.design{
+    background:var(--coral-soft); border-color:var(--coral); color:var(--coral);
+  }
+  body[data-lens="code"] .tag.code{
+    background:var(--teal-soft); border-color:var(--teal); color:var(--teal);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .toolkits{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  @media (max-width:640px){ .toolkits{ grid-template-columns:1fr; } }
+  .toolkit{ border:1px solid var(--line); padding:22px 22px 20px; border-radius:var(--radius); background:rgba(255,255,255,.4); }
+  .toolkit h3{
+    font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    margin:0 0 14px; display:flex; align-items:center; gap:8px;
+  }
+  .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .dot.coral{ background:var(--coral); }
+  .dot.teal{ background:var(--teal); }
+  .toolkit ul{ list-style:none; margin:0; padding:0; font-size:14.5px; color:var(--ink-soft); }
+  .toolkit li{ padding:6px 0; border-bottom:1px dashed var(--line); display:flex; justify-content:space-between; }
+  .toolkit li:last-child{ border-bottom:none; }
+  .toolkit li span.lvl{ font-family:var(--mono); font-size:11px; color:var(--ink-soft); }
+
+  .soft-row{ margin-top:22px; font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); }
+  .soft-row b{ color:var(--navy); }
+
+  /* ---------- CERTS + EDU ---------- */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  @media (max-width:700px){ .grid2{ grid-template-columns:1fr; } }
+  .cert-list{ list-style:none; margin:0; padding:0; }
+  .cert-list li{
+    font-size:14.5px; color:var(--ink-soft); padding:10px 0; border-top:1px solid var(--line);
+    display:flex; gap:10px; align-items:baseline;
+  }
+  .cert-list li:first-child{ border-top:none; }
+  .cert-list li::before{ content:"◆"; font-size:8px; color:var(--gold); }
+
+  .edu-item{ margin-bottom:20px; }
+  .edu-item h4{ font-family:var(--serif); font-size:17px; margin:0 0 3px; }
+  .edu-item .meta{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); }
+  .edu-item .pct{ font-size:13.5px; color:var(--ink-soft); margin-top:3px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:50px 0 70px; }
+  .footer-inner{
+    border-top:1px solid var(--line); padding-top:34px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;
+  }
+  .footer-cta h2{
+    font-family:var(--serif); font-size:clamp(26px,4vw,36px); margin:0 0 10px;
+  }
+  .footer-cta p{ color:var(--ink-soft); margin:0 0 18px; max-width:40ch; }
+  .footer-links{ font-family:var(--mono); font-size:13px; color:var(--ink-soft); }
+  .footer-links a{ text-decoration:none; color:var(--navy); }
+  .footer-links a:hover{ color:var(--coral); }
+  .footer-links div{ margin-bottom:8px; }
+  .eof{ margin-top:36px; font-family:var(--mono); font-size:11px; color:var(--line); text-align:center; }
+</style>
+</head>
+<body data-lens="both">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-mark" href="#top">PV / portfolio</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="lens">
+      <span>Lens</span>
+      <div class="switch" role="group" aria-label="Filter by focus">
+        <button type="button" data-lens="design">Design</button>
+        <button type="button" class="active" data-lens="both">Both</button>
+        <button type="button" data-lens="code">Code</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <p class="eyebrow">// portfolio.priyadharshini</p>
+    <h1 class="name">Priyadharshini&nbsp;V</h1>
+    <p class="role-path">
+      <span class="seg">graphics-designer</span><span class="slash">/</span>
+      <span class="seg">it-support</span><span class="slash">/</span>
+      <span class="seg">python-automation</span>
+    </p>
+    <p class="lede">
+      I trace the same curve on both sides of the screen — turning a raster image into a clean vector path,
+      and a manual, repetitive task into a script that runs itself. MSc Computer Science graduate based in
+      Chennai, currently working across design and operations at Bradalson Group in Victoria, Australia.
+    </p>
+    <div class="hero-cta">
+      <a class="btn solid" href="mailto:vpriyadharshini9702@gmail.com">Email me</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/k-priya-dharshini-600922421" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+
+    <svg class="trace" viewBox="0 0 340 260" aria-hidden="true">
+      <line class="handle" x1="40" y1="210" x2="90" y2="150"/>
+      <line class="handle" x1="230" y1="40" x2="280" y2="90"/>
+      <path class="curve" d="M40,210 C90,150 190,90 280,90 S 300,40 300,40"/>
+      <circle class="anchor" cx="40" cy="210" r="5"/>
+      <circle class="anchor" cx="280" cy="90" r="5"/>
+      <circle class="control" cx="90" cy="150" r="3.5"/>
+      <circle class="control" cx="230" cy="40" r="3.5"/>
+    </svg>
+  </section>
+
+  <section id="about" class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">About</h2><div class="sec-rule"></div></div>
+    <div class="about-body">
+      <p class="about-text">
+        <strong>MSc Computer Science graduate</strong> with 8 months of experience inside a fast-moving e-commerce
+        and startup environment, where design, support, and automation constantly overlap. I've <strong>trained new
+        team members</strong>, made independent calls on order escalations, and built <strong>Python-based automation
+        scripts</strong> to streamline stock tracking, flag inventory issues, and generate reports. Equally comfortable
+        tracing a logo in Illustrator or debugging a script — I'm looking for a role, IT or non-IT, that lets me keep
+        working across that line.
+      </p>
+      <dl class="facts">
+        <dt>Based in</dt><dd>Chennai, Tamil Nadu, India</dd>
+        <dt>Education</dt><dd>MSc Computer Science, 2025</dd>
+        <dt>Currently</dt><dd>Graphics Designer, Bradalson Group</dd>
+        <dt>Open to</dt><dd>IT &amp; non-IT roles</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="experience" class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Experience</h2><div class="sec-rule"></div></div>
+    <div class="timeline">
+      <div class="node">
+        <div class="node-head">
+          <div>
+            <p class="node-title">Graphics Designer</p>
+            <p class="node-org">Bradalson Group Pty Ltd — Victoria, Australia</p>
+          </div>
+          <span class="node-date">Nov 2025 — Jul 2026</span>
+        </div>
+        <ul class="bullets">
+          <li>Converted raster images to <b>vector file formats</b> using Adobe Illustrator for design and branding needs.</li>
+          <li>Created <b>embroidery previews</b> using Wilcom software, converting flat images into thread-effect designs.</li>
+          <li>Researched and implemented <b>Python and Java scripts</b> to automate manual processes, improving operational efficiency.</li>
+          <li>Developed web pages using <b>HTML and CSS</b>, and ran white-box testing to catch and report issues to the dev team.</li>
+          <li>Conducted requirement-based testing to verify site functionality and navigation.</li>
+          <li>Managed <b>stock and inventory tracking</b>.</li>
+          <li>Handled customer support across live chat, email, and tickets — <b>~20 tickets a day</b>, resolving order queries and escalations.</li>
+          <li>Coordinated hiring for new candidates — screening and phone-interviewing <b>~5 candidates a day</b>.</li>
+          <li>Identified operational issues and reported findings to management.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag design">Illustrator</span>
+          <span class="tag design">Wilcom</span>
+          <span class="tag code">Python</span>
+          <span class="tag code">Java</span>
+          <span class="tag code">HTML/CSS</span>
+          <span class="tag support">Customer Support</span>
+          <span class="tag support">Hiring</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Projects</h2><div class="sec-rule"></div></div>
+    <div class="timeline">
+      <div class="node code-only">
+        <div class="node-head">
+          <div>
+            <p class="node-title">Thyroid Disease Classification (ML)</p>
+            <p class="node-org">Team project</p>
+          </div>
+          <span class="node-date">Mar — Apr 2023</span>
+        </div>
+        <ul class="bullets">
+          <li>Collaborated on a team project achieving <b>84% accuracy and precision</b>.</li>
+          <li>Implemented a Flask environment in PyCharm to deploy the classification model.</li>
+          <li>Integrated web pages with the model and handled data preprocessing.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag code">Python</span>
+          <span class="tag code">Flask</span>
+          <span class="tag code">Machine Learning</span>
+        </div>
+      </div>
+
+      <div class="node code-only">
+        <div class="node-head">
+          <div>
+            <p class="node-title">Old Age Home Management System</p>
+            <p class="node-org">Web application</p>
+          </div>
+          <span class="node-date">Mar — Apr 2023</span>
+        </div>
+        <ul class="bullets">
+          <li>Built a web application using <b>PHP and MySQL</b> to manage day-to-day records.</li>
+          <li>Designed the system to improve operational efficiency and user experience.</li>
+          <li>Created a user-friendly interface to streamline tasks and improve quality of use.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag code">PHP</span>
+          <span class="tag code">MySQL</span>
+        </div>
+      </div>
+      <div class="node code-only">
+        <div class="node-head">
+          <div>
+            <p class="node-title">College Stakeholder Feedback Analysis System</p>
+            <p class="node-org">Web application</p>
+          </div>
+          <span class="node-date">Jan — Apr 2025</span>
+        </div>
+        <ul class="bullets">
+          <li>Built a web-based feedback platform on <b>PHP, MySQL, and XAMPP</b> to collect feedback from students (2019–2024 graduates), staff, industry representatives, and alumni.</li>
+          <li>Designed a roll-number login and structured multiple-choice feedback form.</li>
+          <li>Generated compiled feedback reports, exportable as <b>PDF</b>, covering academic quality, campus environment, and industry readiness — supporting institutional decision-making.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag code">PHP</span>
+          <span class="tag code">MySQL</span>
+          <span class="tag code">XAMPP</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Skills</h2><div class="sec-rule"></div></div>
+    <div class="toolkits">
+      <div class="toolkit">
+        <h3><span class="dot coral"></span>Design toolkit</h3>
+        <ul>
+          <li>Adobe Illustrator <span class="lvl">raster → vector</span></li>
+          <li>Wilcom <span class="lvl">embroidery digitizing</span></li>
+        </ul>
+      </div>
+      <div class="toolkit">
+        <h3><span class="dot teal"></span>Code &amp; systems toolkit</h3>
+        <ul>
+          <li>Python, Java <span class="lvl">languages</span></li>
+          <li>HTML, CSS <span class="lvl">web</span></li>
+          <li>Flask <span class="lvl">framework</span></li>
+          <li>SQL, MySQL <span class="lvl">database</span></li>
+          <li>Git, GitHub <span class="lvl">version control</span></li>
+          <li>SDLC <span class="lvl">process</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="soft-row"><b>Soft skills —</b> Communication, Teamwork, Leadership</p>
+  </section>
+
+  <section id="certs" class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Certifications &amp; Education</h2><div class="sec-rule"></div></div>
+    <div class="grid2">
+      <div>
+        <ul class="cert-list">
+          <li>Foundations of Digital Marketing and E-Commerce</li>
+          <li>Foundations: Data, Data, Everywhere</li>
+          <li>Ask Questions to Make Data-Driven Decisions</li>
+          <li>Machine Learning with Python — Jul 2023</li>
+        </ul>
+      </div>
+      <div>
+        <div class="edu-item">
+          <h4>MSc Computer Science</h4>
+          <p class="meta">Government Arts College (Autonomous), Coimbatore · Sep 2023 – Apr 2025</p>
+          <p class="pct">78.5%</p>
+        </div>
+        <div class="edu-item">
+          <h4>BSc Computer Science</h4>
+          <p class="meta">LRG Government Arts College for Women, Tiruppur · Sep 2020 – Jun 2023</p>
+          <p class="pct">83.48%</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" class="wrap">
+    <div class="footer-inner">
+      <div class="footer-cta">
+        <h2>Let's talk.</h2>
+        <p>Open to IT and non-IT roles — happy to walk through any of the work above in more detail.</p>
+        <a class="btn solid" href="mailto:vpriyadharshini9702@gmail.com">vpriyadharshini9702@gmail.com</a>
+      </div>
+      <div class="footer-links">
+        <div>📞 8248197600</div>
+        <div>📍 Chennai, Tamil Nadu, India</div>
+        <div>🔗 <a href="https://www.linkedin.com/in/k-priya-dharshini-600922421" target="_blank" rel="noopener">linkedin.com/in/k-priya-dharshini-600922421</a></div>
+      </div>
+    </div>
+    <p class="eof">// end of file</p>
+  </footer>
+</main>
+
+<script>
+  const buttons = document.querySelectorAll('.switch button');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.body.setAttribute('data-lens', btn.dataset.lens);
+    });
+  });
+</script>
+</body>
+</html>
